@@ -11,7 +11,7 @@ class UserDefinedProtocolRegister:
     @staticmethod
     def registerGenerateQuestionsProtocol():
         customProtocolService = CustomProtocolServiceImpl.getInstance()
-        generateBacklogService = GenerateQuestionsServiceImpl.getInstance()
+        generateQuestionsService = GenerateQuestionsServiceImpl.getInstance()
 
         requestClassMapInstance = RequestClassMap.getInstance()
         requestClassMapInstance.addRequestClass(
@@ -27,7 +27,7 @@ class UserDefinedProtocolRegister:
 
         customProtocolService.registerCustomProtocol(
             UserDefinedProtocolNumber.GENERATE_QUESTIONS_PROTOCOL_NUMBER,
-            generateBacklogService.generate
+            generateQuestionsService.generate
         )
 
     @staticmethod
