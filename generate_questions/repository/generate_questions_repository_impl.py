@@ -27,18 +27,19 @@ class GenerateQuestionsRepositoryImpl(GenerateQuestionsRepository):
     async def generate(self, category):
         client = openai.AsyncClient(api_key=OPENAI_API_KEY)
         systemPrompt = "You are a helpful assistant for generating interview questions."
-        userPrompt = (f"Generate 5 interview questions for the category in KOREAN: {category}"
-                      f""
-                      f"</example>"
-                      f"input: Generate 5 interview questions for the category in KOREAN: Technical skills"
-                      f"output:"
-                      f"1. 첫번째 질문"
-                      f"2. 두번째 질문"
-                      f"3. 세번째 질문"
-                      f"4. 네번째 질문"
-                      f"5. 다섯번째 질문"
-                      f""
-                      f"OUTPUT:")
+        userPrompt = f"""Generate 5 interview questions for the category in KOREAN: {category}
+                      
+                      <example>
+                      input: Generate 5 interview questions for the category in KOREAN: Technical skills
+                      output:
+                      1. 첫번째 질문
+                      2. 두번째 질문
+                      3. 세번째 질문
+                      4. 네번째 질문
+                      5. 다섯번째 질문
+                      </example>
+                      
+                      OUTPUT:"""
 
         messages = [
             {
