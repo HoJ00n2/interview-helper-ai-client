@@ -5,9 +5,10 @@ from functools import partial
 
 import colorama
 
-from user_defined_protocol.register import UserDefinedProtocolRegister
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'template'))
+
+from user_defined_protocol.register import UserDefinedProtocolRegister
 
 from template.client_socket.service.client_socket_service_impl import ClientSocketServiceImpl
 from template.command_analyzer.service.command_analyzer_service_impl import CommandAnalyzerServiceImpl
