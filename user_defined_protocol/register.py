@@ -27,7 +27,7 @@ class UserDefinedProtocolRegister:
 
         customProtocolService.registerCustomProtocol(
             UserDefinedProtocolNumber.GENERATE_QUESTIONS_PROTOCOL_NUMBER,
-            generateQuestionsService.generate
+            generateQuestionsService.generateQuestions
         )
 
     @staticmethod

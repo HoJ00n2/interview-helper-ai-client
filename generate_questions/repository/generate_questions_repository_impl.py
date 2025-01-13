@@ -57,4 +57,4 @@ class GenerateQuestionsRepositoryImpl(GenerateQuestionsRepository):
             max_tokens=1024
         )
 
-        return response.choices[0].message.content
+        return response.choices[0].message.content.split("\n")
