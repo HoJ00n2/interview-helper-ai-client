@@ -1,4 +1,5 @@
 import os
+import re
 
 import openai
 from dotenv import load_dotenv
@@ -57,4 +58,7 @@ class GenerateQuestionsRepositoryImpl(GenerateQuestionsRepository):
             max_tokens=1024
         )
 
-        return response.choices[0].message.content.split("\n")
+        result = response.choices[0].message.content.split("\n")
+        generatedQuestionList = [re.sub(r'^\d+\.\s+', '', s) for s in result]
+
+        return generatedQuestionList
