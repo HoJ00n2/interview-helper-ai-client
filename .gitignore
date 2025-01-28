@@ -169,3 +169,9 @@ cython_debug/
 
 # exclude *.key
 *.key
+
+# exclude *.htpasswd
+server.htpasswd
+
+# exclude .DS_Store
+.DS_Store
