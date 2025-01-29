@@ -6,6 +6,7 @@ class UserDefinedProtocolNumber(Enum):
     GENERATE_QUESTIONS_PROTOCOL_NUMBER = 6
 
     SAVE_QUESTIONS_PROTOCOL_NUMBER = 31
+    SEARCH_QUESTIONS_PROTOCOL_NUMBER = 32
 
     @classmethod
     def hasValue(cls, value):

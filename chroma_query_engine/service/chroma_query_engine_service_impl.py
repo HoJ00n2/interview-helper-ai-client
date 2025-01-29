@@ -36,6 +36,20 @@ class ChromaQueryEngineServiceImpl(ChromaQueryEngineService):
 
         return {"userToken": userToken, "message" : result}
 
-    def search(self, *args, ipcExecutorConditionalCustomExecutorChannel=None, **kwargs):
-        pass
+    async def search(self, *args, ipcExecutorConditionalCustomExecutorChannel=None, **kwargs):
+        ColorPrinter.print_important_message("service -> search() called!")
+        userToken = args[0]
+        userId = args[1]
+        query = args[2]
 
+        ColorPrinter.print_important_data("userToken", userToken)
+        ColorPrinter.print_important_data("userId", userId)
+        ColorPrinter.print_important_data("query", query)
+
+        results = await self.__chromaQueryEngineRepository.search(userId, query)
+        documents = results['documents'][0]
+        ids = results['ids'][0]
+        distances = results['distances'][0]
+        response = [{"id": ids[i], "title": documents[i], "distance": distances[i]} for i in range(len(documents))]
+
+        return {"userToken": userToken, "message": response}
