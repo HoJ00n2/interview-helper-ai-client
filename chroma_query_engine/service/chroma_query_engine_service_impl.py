@@ -22,10 +22,11 @@ class ChromaQueryEngineServiceImpl(ChromaQueryEngineService):
 
     async def save(self, *args, ipcExecutorConditionalCustomExecutorChannel=None, **kwargs):
         ColorPrinter.print_important_message("service -> save() called!")
-        userId = args[0]
-        questionIds = args[1]
-        questionCategory = args[2]
-        questionTexts = args[3]
+        userToken = args[0]
+        userId = args[1]
+        questionIds = args[2]
+        questionCategory = args[3]
+        questionTexts = args[4]
         ColorPrinter.print_important_data("userId", userId)
         ColorPrinter.print_important_data("questionIds", questionTexts)
         ColorPrinter.print_important_data("questionCategory", questionCategory)
@@ -33,7 +34,7 @@ class ChromaQueryEngineServiceImpl(ChromaQueryEngineService):
 
         result = await self.__chromaQueryEngineRepository.save(userId, questionIds, questionCategory, questionTexts)
 
-        return {"message" : result}
+        return {"userToken": userToken, "message" : result}
 
     def search(self, *args, ipcExecutorConditionalCustomExecutorChannel=None, **kwargs):
         pass
