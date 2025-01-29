@@ -1,6 +1,8 @@
 from chroma_query_engine.service.chroma_query_engine_service_impl import ChromaQueryEngineServiceImpl
 from chroma_query_engine.service.request.save_questions_request import SaveQuestionsRequest
+from chroma_query_engine.service.request.search_questions_request import SearchQuestionsRequest
 from chroma_query_engine.service.response.save_questions_response import SaveQuestionsResponse
+from chroma_query_engine.service.response.search_questions_response import SearchQuestionsResponse
 from generate_questions.service.generate_questions_service_impl import GenerateQuestionsServiceImpl
 from generate_questions.service.request.generate_questions_request import GenerateQuestionsRequest
 from generate_questions.service.response.generate_questions_response import GenerateQuestionsResponse
@@ -56,6 +58,29 @@ class UserDefinedProtocolRegister:
         )
 
     @staticmethod
+    def registerSearchQuestionsProtocol():
+        customProtocolService = CustomProtocolServiceImpl.getInstance()
+        searchQuestionsService = ChromaQueryEngineServiceImpl.getInstance()
+
+        requestClassMapInstance = RequestClassMap.getInstance()
+        requestClassMapInstance.addRequestClass(
+            UserDefinedProtocolNumber.SEARCH_QUESTIONS_PROTOCOL_NUMBER,
+            SearchQuestionsRequest
+        )
+
+        responseClassMapInstance = ResponseClassMap.getInstance()
+        responseClassMapInstance.addResponseClass(
+            UserDefinedProtocolNumber.SEARCH_QUESTIONS_PROTOCOL_NUMBER,
+            SearchQuestionsResponse
+        )
+
+        customProtocolService.registerCustomProtocol(
+            UserDefinedProtocolNumber.SEARCH_QUESTIONS_PROTOCOL_NUMBER,
+            searchQuestionsService.search
+        )
+
+    @staticmethod
     def registerUserDefinedProtocol():
         UserDefinedProtocolRegister.registerGenerateQuestionsProtocol()
         UserDefinedProtocolRegister.registerSaveQuestionsProtocol()
+        UserDefinedProtocolRegister.registerSearchQuestionsProtocol()

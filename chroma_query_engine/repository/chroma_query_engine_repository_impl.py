@@ -22,7 +22,8 @@ class ChromaQueryEngineRepositoryImpl(ChromaQueryEngineRepository):
         )
     )
     embeddings = OpenAIEmbeddingFunction(api_key=os.getenv("OPENAI_API_KEY"))
-    collection = client.get_or_create_collection("interview_helper", embedding_function=embeddings)
+    collection = client.get_or_create_collection("interview_helper", embedding_function=embeddings,
+                                                 metadata={"hnsw:space": "cosine"})
 
 
     def __new__(cls):
@@ -57,3 +58,18 @@ class ChromaQueryEngineRepositoryImpl(ChromaQueryEngineRepository):
         except Exception as e:
             print(f"ChromaDB에 데이터 저장 중 오류 발생: {e}")
             return False
+
+    async def search(self, userId, query):
+        try:
+            results = self.collection.query(
+                query_texts=[f"주어진 단어와 관련된 문서를 찾아줘.\n주어진 단어: {query}"],
+                where={"user_id": {"$eq": userId}},
+                n_results=5
+            )
+            ColorPrinter.print_important_data("search result:", results)
+
+            return results
+
+        except Exception as e:
+            print(f"ChromaDB에서 {query}로 검색 중 오류 발생: {e}")
+            return None
